@@ -20,17 +20,16 @@ public class ElectronicCashCardApplicationTests {
 
 		List<ConcurrentTransactionTest> concurrentTransactionTests = new ArrayList<>();
 		final int TRANSACTION_THREADS = 100;
-		final int TEST_THREAD_SLEEP_TIME = 30;
 		for (int n = 0; n < TRANSACTION_THREADS; n++) {
 			Retailer retailer = new Retailer("R" + n);
 			ConcurrentTransactionTest concurrentTransactionTest = new ConcurrentTransactionTest(card, retailer, 100);
 			concurrentTransactionTests.add(concurrentTransactionTest);
 		}
-		// testing all threads finished their tasks
-		Boolean notDone = true;
-		while (notDone) {
-			notDone = isThreadsStillWorking(concurrentTransactionTests, TEST_THREAD_SLEEP_TIME);
-		}
+		
+		// junit thread join & wait all transaction threads to finish
+	    for(ConcurrentTransactionTest concurrentTransactionTest :  concurrentTransactionTests){
+	    	concurrentTransactionTest.thread.join();
+	    }
 
 		// test if any of the thread flagged an error
 		Boolean noError = !transactionError(concurrentTransactionTests);
@@ -49,18 +48,16 @@ public class ElectronicCashCardApplicationTests {
 
 		List<ConcurrentTransactionTest> concurrentTransactionTests = new ArrayList<>();
 		final int TRANSACTION_THREADS = 100;
-		final int TEST_THREAD_SLEEP_TIME = 30;
 		for (int n = 0; n < TRANSACTION_THREADS; n++) {
 			Retailer retailer = new Retailer("R" + n);
 			ConcurrentTransactionTest concurrentTransactionTest = new ConcurrentTransactionTest(card, retailer, 100);
 			concurrentTransactionTests.add(concurrentTransactionTest);
 		}
 
-		// testing all threads finished their tasks
-		Boolean notDone = true;
-		while (notDone) {
-			notDone = isThreadsStillWorking(concurrentTransactionTests, TEST_THREAD_SLEEP_TIME);
-		}
+		// junit thread join & wait all transaction threads to finish
+	    for(ConcurrentTransactionTest concurrentTransactionTest :  concurrentTransactionTests){
+	    	concurrentTransactionTest.thread.join();
+	    }
 
 		// test if any of the thread flagged an error
 		Boolean error = transactionError(concurrentTransactionTests);
@@ -69,20 +66,6 @@ public class ElectronicCashCardApplicationTests {
 		assertTrue("No Sufficient Fund Test Case Failure", card.getBalance() == 99);
 	}
 
-	private Boolean isThreadsStillWorking(List<ConcurrentTransactionTest> concurrentTransactionTests, int TEST_THREAD_SLEEP_TIME) throws InterruptedException{
-
-		Boolean threadsWorking = false;
-		for (ConcurrentTransactionTest concurrentTransactionTest : concurrentTransactionTests) {
-			if (!concurrentTransactionTest.done || concurrentTransactionTest.thread.isAlive()) {
-				Thread.sleep(TEST_THREAD_SLEEP_TIME);
-				threadsWorking = true;
-				break;
-			}
-		}
-		
-		return threadsWorking;
-	}
-	
 	private Boolean transactionError(List<ConcurrentTransactionTest> concurrentTransactionTests){
 		
 		Boolean error = false;

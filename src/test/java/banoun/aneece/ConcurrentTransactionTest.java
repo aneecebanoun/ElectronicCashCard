@@ -9,7 +9,6 @@ public class ConcurrentTransactionTest implements Runnable {
 	private Card card;
 	private Retailer retailer;
 	private Integer amount;
-	public boolean done;
 	public boolean error;
 	public Thread thread;
 
@@ -29,7 +28,6 @@ public class ConcurrentTransactionTest implements Runnable {
 				} catch (NoSufficientFundException e) {
 					error = true;
 				}
-				done = true;
 	}
 
 }
