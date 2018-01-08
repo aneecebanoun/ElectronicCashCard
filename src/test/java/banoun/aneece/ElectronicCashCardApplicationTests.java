@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
@@ -12,6 +14,8 @@ import banoun.aneece.model.Retailer;
 
 public class ElectronicCashCardApplicationTests {
 
+	private CountDownLatch lock = new CountDownLatch(1);
+	
 	@Test
 	public void sufficientFundTest() throws InterruptedException {
 
@@ -31,6 +35,7 @@ public class ElectronicCashCardApplicationTests {
 	    	concurrentTransactionTest.thread.join();
 	    }
 
+	    lock.await(7000, TimeUnit.MILLISECONDS);
 		// test if any of the thread flagged an error
 		Boolean noError = !transactionError(concurrentTransactionTests);
 
@@ -67,6 +72,7 @@ public class ElectronicCashCardApplicationTests {
 			notDone = isThreadsStillWorking(concurrentTransactionTests, TEST_THREAD_SLEEP_TIME);
 		}
 
+		lock.await(7000, TimeUnit.MILLISECONDS);
 		// test if any of the thread flagged an error
 		Boolean error = transactionError(concurrentTransactionTests);
 
