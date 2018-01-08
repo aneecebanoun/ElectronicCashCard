@@ -73,6 +73,7 @@ public class ElectronicCashCardApplicationTests {
 		}
 
 		lock.await(7000, TimeUnit.MILLISECONDS);
+		Thread.sleep(7000);
 		// test if any of the thread flagged an error
 		Boolean error = transactionError(concurrentTransactionTests);
 
