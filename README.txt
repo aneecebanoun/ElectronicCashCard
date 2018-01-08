@@ -1,4 +1,4 @@
-<a class="badge-align" href="https://www.codacy.com/app/java2ee5/ElectronicCashCard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aneecebanoun/ElectronicCashCard&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/fa1c5541daef4c2d90e5798293ff1d66"/></a>
+
 ASSIGNMENT
 
 Instructions
