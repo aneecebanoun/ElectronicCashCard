@@ -16,7 +16,7 @@ public class ElectronicCashCardApplicationTests {
 
 	private CountDownLatch lock = new CountDownLatch(1);
 	
-	@Test
+	@Test(timeout = 7000)
 	public void sufficientFundTest() throws InterruptedException {
 
 		Card card = new Card("111");
@@ -45,7 +45,7 @@ public class ElectronicCashCardApplicationTests {
 
 	// @Test(expected = NoSufficientFundException.class)
 	// tried expected does not seem to work in multithreaded case so this is a work around
-	@Test
+	@Test(timeout = 7000)
 	public void noSufficientFundTest() throws InterruptedException {
 
 		Card card = new Card("111");
@@ -72,7 +72,7 @@ public class ElectronicCashCardApplicationTests {
 			notDone = isThreadsStillWorking(concurrentTransactionTests, TEST_THREAD_SLEEP_TIME);
 		}
 
-		lock.await(7000, TimeUnit.MILLISECONDS);
+//		lock.await(7000, TimeUnit.MILLISECONDS);
 		Thread.sleep(7000);
 		// test if any of the thread flagged an error
 		Boolean error = transactionError(concurrentTransactionTests);
