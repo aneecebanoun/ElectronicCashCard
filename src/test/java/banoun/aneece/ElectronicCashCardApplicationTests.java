@@ -46,6 +46,8 @@ public class ElectronicCashCardApplicationTests {
 		Card card = new Card("111");
 		card.addCredit(9999);
 
+		final int TEST_THREAD_SLEEP_TIME = 30;
+		
 		List<ConcurrentTransactionTest> concurrentTransactionTests = new ArrayList<>();
 		final int TRANSACTION_THREADS = 100;
 		for (int n = 0; n < TRANSACTION_THREADS; n++) {
@@ -58,6 +60,12 @@ public class ElectronicCashCardApplicationTests {
 	    for(ConcurrentTransactionTest concurrentTransactionTest :  concurrentTransactionTests){
 	    	concurrentTransactionTest.thread.join();
 	    }
+	    
+		// testing all threads finished their tasks
+		Boolean notDone = true;
+		while (notDone) {
+			notDone = isThreadsStillWorking(concurrentTransactionTests, TEST_THREAD_SLEEP_TIME);
+		}
 
 		// test if any of the thread flagged an error
 		Boolean error = transactionError(concurrentTransactionTests);
@@ -76,6 +84,19 @@ public class ElectronicCashCardApplicationTests {
 			}
 		}
 		return error;
+	}
+	private Boolean isThreadsStillWorking(List<ConcurrentTransactionTest> concurrentTransactionTests, int TEST_THREAD_SLEEP_TIME) throws InterruptedException{
+
+		Boolean threadsWorking = false;
+		for (ConcurrentTransactionTest concurrentTransactionTest : concurrentTransactionTests) {
+			if (concurrentTransactionTest.thread.isAlive()) {
+				Thread.sleep(TEST_THREAD_SLEEP_TIME);
+				threadsWorking = true;
+				break;
+			}
+		}
+		
+		return threadsWorking;
 	}
 
 }
