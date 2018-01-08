@@ -16,7 +16,7 @@ public class ElectronicCashCardApplicationTests {
 
 	private CountDownLatch lock = new CountDownLatch(1);
 	
-	@Test(timeout = 7000)
+	@Test(timeout = 40000)
 	public void sufficientFundTest() throws InterruptedException {
 
 		Card card = new Card("111");
@@ -45,7 +45,7 @@ public class ElectronicCashCardApplicationTests {
 
 	// @Test(expected = NoSufficientFundException.class)
 	// tried expected does not seem to work in multithreaded case so this is a work around
-	@Test(timeout = 7000)
+	@Test(timeout = 40000)
 	public void noSufficientFundTest() throws InterruptedException {
 
 		Card card = new Card("111");
