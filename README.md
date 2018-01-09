@@ -1,5 +1,9 @@
 [![CircleCI](https://circleci.com/gh/aneecebanoun/ElectronicCashCard.svg?style=svg)](https://circleci.com/gh/aneecebanoun/ElectronicCashCard)
 
+
+[![codebeat badge](https://codebeat.co/badges/dc9cef31-146a-447a-a326-ab1e3fed5e2e)](https://codebeat.co/projects/github-com-aneecebanoun-electroniccashcard-master)
+
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fa1c5541daef4c2d90e5798293ff1d66)](https://www.codacy.com/app/java2ee5/ElectronicCashCard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aneecebanoun/ElectronicCashCard&amp;utm_campaign=Badge_Grade)
 
 ASSIGNMENT
