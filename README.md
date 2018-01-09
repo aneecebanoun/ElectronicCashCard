@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/aneecebanoun/ElectronicCashCard.svg?style=svg)](https://circleci.com/gh/aneecebanoun/ElectronicCashCard)
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fa1c5541daef4c2d90e5798293ff1d66)](https://www.codacy.com/app/java2ee5/ElectronicCashCard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aneecebanoun/ElectronicCashCard&amp;utm_campaign=Badge_Grade)
 
 ASSIGNMENT
