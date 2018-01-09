@@ -1,51 +1,48 @@
 package banoun.aneece;
-
-
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.anarsoft.vmlens.concurrent.junit.ConcurrentTestRunner;
-import com.anarsoft.vmlens.concurrent.junit.ThreadCount;
-
+import banoun.aneece.exceptions.NoSufficientFundException;
 import banoun.aneece.model.Card;
 import banoun.aneece.model.Retailer;
 
-@RunWith(ConcurrentTestRunner.class)
 public class ElectronicCashCardTests {
 
-	int retailerNumber = 0;
-
-	Card gold = new Card("GOLD");
-	Card platinum = new Card("PLATINUM");
-
-	@Before
-	public void addInitialBalance() {
+	@Test(expected = NoSufficientFundException.class)
+	public void noSufficientFundExceptionTest() {
+		Card gold = new Card("GOLD");
 		gold.addCredit(9999);
-		platinum.addCredit(10001);
+		for(int n = 0; n < 100; n++){
+			new Retailer("R" + n).makeCardSale(gold, 100);
+		}
+		assertTrue("No Sufficient Fund Exception", 99 == gold.getBalance());
+	}
+	
+	@Test
+	public void noSufficientFundTest() {
+		Card gold = new Card("GOLD");
+		gold.addCredit(9999);
+		Boolean noSufficientFundException = false;
+		for(int n = 0; n < 100; n++){
+			try{
+				new Retailer("R" + n).makeCardSale(gold, 100);
+			}catch(NoSufficientFundException e){
+				 noSufficientFundException = true;
+			}
+		}
+		assertTrue("No Sufficient Fund Exception", 99 == gold.getBalance());
+		assertTrue("No Sufficient Fund Exception", noSufficientFundException);
 	}
 
-	@Test
-	@ThreadCount(100)
-	public void noSufficientFundTest() {
-		Retailer retailer = new Retailer("R" + (retailerNumber++));
-			retailer.makeCardSale(gold, 100);	
-	}
 	
 	@Test
-	@ThreadCount(100)
 	public void sufficientFundTest() {
-		Retailer retailer = new Retailer("R" + (retailerNumber++));
-			retailer.makeCardSale(platinum, 100);	
-	}
-	
-	@After
-	public void allDone() {
+		Card platinum = new Card("PLATINUM");
+		platinum.addCredit(10_001);
+		for(int n = 0; n < 100; n++){
+			new Retailer("R" + n).makeCardSale(platinum, 100);
+		}
 		assertTrue("Sufficient Fund ERROR", 1 == platinum.getBalance());
-		assertTrue("No Sufficient Fund Exception", 99 == gold.getBalance());
 	}
 
 }

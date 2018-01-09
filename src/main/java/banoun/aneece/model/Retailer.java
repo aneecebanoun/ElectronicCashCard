@@ -20,8 +20,6 @@ public class Retailer {
 	}
 
 	public void makeCardSale(Card card, Integer amount) throws NoSufficientFundException {
-
-		try{
 			if(amount < 0){
 				return;
 			}
@@ -31,11 +29,6 @@ public class Retailer {
 			synchronized (this.totalCredit) {
 				this.totalCredit += amount;
 			}
-		}catch(NoSufficientFundException e){
-			// L0Gee
-			
-		}
-
 	}
 
 }

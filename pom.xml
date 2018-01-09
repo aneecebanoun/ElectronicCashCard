@@ -35,12 +35,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		  <dependency>
-          <groupId>com.vmlens</groupId>
-          <artifactId>concurrent-junit</artifactId>
-          <version>1.0.0</version>
-     </dependency>
-		
 	</dependencies>
 
 	<build>
